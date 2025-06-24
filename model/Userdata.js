@@ -6,7 +6,8 @@ const UserSchema = new Schema({
     name: {type: String, required: true},
     SigninAt: { type: Date, default: Date.now},
     cart:{type: Array, required: true},
-    address:{type: String}
+    address:{type: String},
+    payment:{type: Boolean, default: false}
 })
 
 export default mongoose.models.Userdata || model("Userdata", UserSchema)

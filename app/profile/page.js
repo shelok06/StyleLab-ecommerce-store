@@ -1,9 +1,18 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSession ,signOut, signIn } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 const page = () => {
   const { data: session } = useSession()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!session) {
+      router.push("/")
+    }
+  }, [session])
+  
   
   return (
     <>

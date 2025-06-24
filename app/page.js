@@ -1,7 +1,8 @@
-'use client'
 import { HiArrowUpRight } from "react-icons/hi2";
+import { fetchProducts } from "@/actions/useractions";
 
 export default function Home() {
+  
   return (
     <>
       <section className="mx-auto my-6 w-[90vw] h-[700px] rounded-xl relative overflow-hidden text-white">

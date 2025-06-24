@@ -11,6 +11,7 @@ const shop = () => {
   const { data: session } = useSession()
   const [categoryDropdown, setCatdropdown] = useState(false)
   const [priceDropdown, setPricedropdown] = useState(false)
+  const [productList, setproductList] = useState([])
 
   const cart = useSelector(state => state.cart.value)
   const dispatch = useDispatch()
@@ -31,7 +32,7 @@ const shop = () => {
       return toast.error("Item already exist in cart!")
     }
     else {
-      let details = { "price": price, "brand": brand, "product": product, }
+      let details = { "price": price, "brand": brand, "product": product, "image": image }
       dispatch(cartFiller(details))
       dispatch(localCart())
       toast.success(`${details.product} added to the cart 🛒`)
@@ -40,7 +41,19 @@ const shop = () => {
 
   useEffect(() => {
     console.log(cart)
+    console.log(productList)
   })
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      let res = await fetch("/api/products")
+      let r = await res.json()
+      setproductList([...r.result])
+    }
+
+    fetchProducts()
+  }, [])
+
 
 
   return (
@@ -109,109 +122,34 @@ const shop = () => {
           </div>
 
           <div className="card_container my-10 flex gap-4 flex-wrap">
-            <div className="card rounded-lg bg-gray-100 p-4">
-              <div className="relative h-[400px] w-[267px] overflow-hidden transition-all">
-                <img className="prodImg" src="/product.png" alt="" />
-              </div>
-              <div className="text flex flex-col my-2.5 gap-2">
-                <div className="flex justify-between items-center">
-                  <h2 className="text-lg product">Casual linen shirt</h2>
-                </div>
-                <p className="text-gray-400 brand">Polo</p>
-                <p className="price">RS.5000</p>
-                <div className="flex">
-                  <h3 className="font-semibold">Size: </h3>
-                  <div className="flex mx-2">
-                    <p className="cursor-pointer">S</p>
-                    <div className="line w-[0.5px] h-4 mx-2 bg-slate-500 self-center"></div>
-                    <p className="cursor-pointer">M</p>
-                    <div className="line w-[0.5px] h-4 mx-2 bg-slate-500 self-center"></div>
-                    <p className="cursor-pointer">L</p>
-                    <div className="line w-[0.5px] h-4 mx-2 bg-slate-500 self-center"></div>
-                    <p className="cursor-pointer">XL</p>
+            {productList && productList.map((item) => {
+              return <div key={item._id} className="card rounded-lg bg-gray-100 p-4">
+                  <div className="relative h-[400px] w-[267px] overflow-hidden transition-all">
+                    <img className="prodImg" src={item.picture} alt="" />
+                  </div>
+                  <div className="text flex flex-col my-2.5 gap-2">
+                    <div className="flex justify-between items-center">
+                      <h2 className="text-lg product">{item.product}</h2>
+                    </div>
+                    <p className="text-gray-400 brand">{item.brand}</p>
+                    <p className="price">RS.{item.price}</p>
+                    <div className="flex">
+                      <h3 className="font-semibold">Size: </h3>
+                      <div className="flex mx-2">
+                        <p className="cursor-pointer">S</p>
+                        <div className="line w-[0.5px] h-4 mx-2 bg-slate-500 self-center"></div>
+                        <p className="cursor-pointer">M</p>
+                        <div className="line w-[0.5px] h-4 mx-2 bg-slate-500 self-center"></div>
+                        <p className="cursor-pointer">L</p>
+                        <div className="line w-[0.5px] h-4 mx-2 bg-slate-500 self-center"></div>
+                        <p className="cursor-pointer">XL</p>
+                      </div>
+                    </div>
+                    <button onClick={e => handleClick(e)} className="border-2 border-black rounded-full py-3 font-semibold">Add to cart</button>
                   </div>
                 </div>
-                <button onClick={e => handleClick(e)} className="border-2 border-black rounded-full py-3 font-semibold">Add to cart</button>
-              </div>
-            </div>
-
-            <div className="card rounded-lg bg-gray-100 p-4">
-              <div className="relative h-[400px] w-[267px] overflow-hidden transition-all">
-                <img className="prodImg" src="/product2.png" alt="" />
-              </div>
-              <div className="text flex flex-col my-2.5 gap-2">
-                <div className="flex justify-between items-center">
-                  <h2 className="text-lg product">Cool hoodie</h2>
-                </div>
-                <p className="text-gray-400 brand">Nike</p>
-                <p className="price">RS.8500</p>
-                <div className="flex">
-                  <h3 className="font-semibold">Size: </h3>
-                  <div className="flex mx-2">
-                    <p className="cursor-pointer">S</p>
-                    <div className="line w-[0.5px] h-4 mx-2 bg-slate-500 self-center"></div>
-                    <p className="cursor-pointer">M</p>
-                    <div className="line w-[0.5px] h-4 mx-2 bg-slate-500 self-center"></div>
-                    <p className="cursor-pointer">L</p>
-                    <div className="line w-[0.5px] h-4 mx-2 bg-slate-500 self-center"></div>
-                    <p className="cursor-pointer">XL</p>
-                  </div>
-                </div>
-                <button onClick={e => handleClick(e)} className="border-2 border-black rounded-full py-3 font-semibold">Add to cart</button>
-              </div>
-            </div>
-
-            <div className="card rounded-lg bg-gray-100 p-4">
-              <div className="relative h-[400px] w-[267px] overflow-hidden transition-all">
-                <img className="prodImg" src="/product3.png" alt="" />
-              </div>
-              <div className="text flex flex-col my-2.5 gap-2">
-                <div className="flex justify-between items-center">
-                  <h2 className="text-lg product">Casual t-shirt</h2>
-                </div>
-                <p className="text-gray-400 brand">Levis</p>
-                <p className="price">RS.3000</p>
-                <div className="flex">
-                  <h3 className="font-semibold">Size: </h3>
-                  <div className="flex mx-2">
-                    <p className="cursor-pointer">S</p>
-                    <div className="line w-[0.5px] h-4 mx-2 bg-slate-500 self-center"></div>
-                    <p className="cursor-pointer">M</p>
-                    <div className="line w-[0.5px] h-4 mx-2 bg-slate-500 self-center"></div>
-                    <p className="cursor-pointer">L</p>
-                    <div className="line w-[0.5px] h-4 mx-2 bg-slate-500 self-center"></div>
-                    <p className="cursor-pointer">XL</p>
-                  </div>
-                </div>
-                <button onClick={e => handleClick(e)} className="border-2 border-black rounded-full py-3 font-semibold">Add to cart</button>
-              </div>
-            </div>
-
-            <div className="card rounded-lg bg-gray-100 p-4">
-              <div className="relative h-[400px] w-[267px] overflow-hidden transition-all">
-                <img className="prodImg" src="/product4.png" alt="" />
-              </div>
-              <div className="text flex flex-col my-2.5 gap-2">
-                <div className="flex justify-between items-center">
-                  <h2 className="text-lg product">Party dress</h2>
-                </div>
-                <p className="text-gray-400 brand">Armani</p>
-                <p className="price">RS.4500</p>
-                <div className="flex">
-                  <h3 className="font-semibold">Size: </h3>
-                  <div className="flex mx-2">
-                    <p className="cursor-pointer">S</p>
-                    <div className="line w-[0.5px] h-4 mx-2 bg-slate-500 self-center"></div>
-                    <p className="cursor-pointer">M</p>
-                    <div className="line w-[0.5px] h-4 mx-2 bg-slate-500 self-center"></div>
-                    <p className="cursor-pointer">L</p>
-                    <div className="line w-[0.5px] h-4 mx-2 bg-slate-500 self-center"></div>
-                    <p className="cursor-pointer">XL</p>
-                  </div>
-                </div>
-                <button onClick={e => handleClick(e)} className="border-2 border-black rounded-full py-3 font-semibold">Add to cart</button>
-              </div>
-            </div>
+            })
+            }
           </div>
         </div>
       </section>

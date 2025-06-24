@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation';
 import { FaFacebook } from "react-icons/fa";
@@ -8,10 +8,14 @@ import Link from 'next/link'
 const signin = () => {
   const { data: session } = useSession()
   const router = useRouter()
+
+  useEffect(() => {
+    if (session) {
+      router.push(`/profile`)
+    }
+  }, [session])
   
-  if (session) {
-    router.push(`/profile`)
-  }
+  
 
   return (
     <>
