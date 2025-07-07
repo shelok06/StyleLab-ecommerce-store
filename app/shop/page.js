@@ -17,7 +17,7 @@ const shop = () => {
   const dispatch = useDispatch()
 
   const handleClick = async (e) => {
-    const price = e.currentTarget.parentElement.querySelector(".price").innerText
+    const price = e.currentTarget.parentElement.querySelector(".price").innerText.split(".")[1]
     const brand = e.currentTarget.parentElement.querySelector(".brand").innerText
     const product = e.currentTarget.parentElement.querySelector(".product").innerText
     const image = e.currentTarget.parentElement.parentElement.querySelector(".prodImg").src
@@ -32,7 +32,7 @@ const shop = () => {
       return toast.error("Item already exist in cart!")
     }
     else {
-      let details = { "price": price, "brand": brand, "product": product, "image": image }
+      let details = { "price": parseInt(price), "brand": brand, "product": product, "image": image }
       dispatch(cartFiller(details))
       dispatch(localCart())
       toast.success(`${details.product} added to the cart 🛒`)
@@ -46,9 +46,15 @@ const shop = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      let res = await fetch("/api/products")
-      let r = await res.json()
-      setproductList([...r.result])
+      try {
+        let res = await fetch("/api/products")
+        if (!res.ok) throw new Error("Fetch failed")
+        let r = await res.json()
+        setproductList([...r.result])
+      } catch (error) {
+        console.error(error)
+        throw error
+      }
     }
 
     fetchProducts()
@@ -124,30 +130,30 @@ const shop = () => {
           <div className="card_container my-10 flex gap-4 flex-wrap">
             {productList && productList.map((item) => {
               return <div key={item._id} className="card rounded-lg bg-gray-100 p-4">
-                  <div className="relative h-[400px] w-[267px] overflow-hidden transition-all">
-                    <img className="prodImg" src={item.picture} alt="" />
-                  </div>
-                  <div className="text flex flex-col my-2.5 gap-2">
-                    <div className="flex justify-between items-center">
-                      <h2 className="text-lg product">{item.product}</h2>
-                    </div>
-                    <p className="text-gray-400 brand">{item.brand}</p>
-                    <p className="price">RS.{item.price}</p>
-                    <div className="flex">
-                      <h3 className="font-semibold">Size: </h3>
-                      <div className="flex mx-2">
-                        <p className="cursor-pointer">S</p>
-                        <div className="line w-[0.5px] h-4 mx-2 bg-slate-500 self-center"></div>
-                        <p className="cursor-pointer">M</p>
-                        <div className="line w-[0.5px] h-4 mx-2 bg-slate-500 self-center"></div>
-                        <p className="cursor-pointer">L</p>
-                        <div className="line w-[0.5px] h-4 mx-2 bg-slate-500 self-center"></div>
-                        <p className="cursor-pointer">XL</p>
-                      </div>
-                    </div>
-                    <button onClick={e => handleClick(e)} className="border-2 border-black rounded-full py-3 font-semibold">Add to cart</button>
-                  </div>
+                <div className="relative h-[400px] w-[267px] overflow-hidden transition-all">
+                  <img className="prodImg" src={item.picture} alt="" />
                 </div>
+                <div className="text flex flex-col my-2.5 gap-2">
+                  <div className="flex justify-between items-center">
+                    <h2 className="text-lg product">{item.product}</h2>
+                  </div>
+                  <p className="text-gray-400 brand">{item.brand}</p>
+                  <p className="price">RS.{item.price}</p>
+                  <div className="flex">
+                    <h3 className="font-semibold">Size: </h3>
+                    <div className="flex mx-2">
+                      <p className="cursor-pointer">S</p>
+                      <div className="line w-[0.5px] h-4 mx-2 bg-slate-500 self-center"></div>
+                      <p className="cursor-pointer">M</p>
+                      <div className="line w-[0.5px] h-4 mx-2 bg-slate-500 self-center"></div>
+                      <p className="cursor-pointer">L</p>
+                      <div className="line w-[0.5px] h-4 mx-2 bg-slate-500 self-center"></div>
+                      <p className="cursor-pointer">XL</p>
+                    </div>
+                  </div>
+                  <button onClick={e => handleClick(e)} className="border-2 border-black rounded-full py-3 font-semibold">Add to cart</button>
+                </div>
+              </div>
             })
             }
           </div>

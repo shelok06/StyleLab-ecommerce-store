@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
-import { saveCart } from "@/actions/useractions";
 import { authoptions } from "../auth/[...nextauth]/route";
 import { getToken } from "next-auth/jwt";
-
+import { orderCreator } from "@/actions/useractions";
 
 export async function POST(req) {
     try {
@@ -11,8 +10,9 @@ export async function POST(req) {
             return NextResponse.json({ success: false, error: "Unauthorized" })
         }
         const body = await req.json()
-        let response = await saveCart(body, token.email)
-        return NextResponse.json({ success: response })
+        const func = await orderCreator(body.orderID, token.email)
+        return NextResponse.json({ success: true, func })
+
     } catch (error) {
         console.error("API error : ", error.message)
         return NextResponse.json({ success: false, error: "Server error" })
