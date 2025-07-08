@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import StoreProvider from "../components/StoreProvider";
 import SessionWrapper from "@/components/SessionWrapper";
+import B_Navbar from "@/components/B_Navbar";
 import Footer from "@/components/Footer";
 
 const geistSans = Geist({
@@ -34,6 +35,7 @@ export default function RootLayout({ children }) {
             <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]"></div>
             <Navbar />
             {children}
+            <B_Navbar />
             <Footer />
           </StoreProvider>
         </SessionWrapper>

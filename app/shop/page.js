@@ -65,7 +65,7 @@ const Shop = () => {
   return (
     <>
       <Toaster />
-      <section className='mx-20 px-14 py-10 min-h-screen'>
+      <section className='lg:mx-20 lg:px-14 mx-10 px-3.5 sm:px-7 py-10'>
         <div className='flex items-center font-semibold text-lg '>
           <Link href="/" className='text-slate-500'>Home</Link>
           /
@@ -127,7 +127,7 @@ const Shop = () => {
             </div>
           </div>
 
-          <div className="card_container my-10 flex gap-4 flex-wrap">
+          <div className="card_container my-10 flex lg:justify-start justify-center gap-6 lg:gap-4 flex-wrap">
             {productList && productList.map((item) => {
               return <div key={item._id} className="card rounded-lg bg-gray-100 p-4">
                 <div className="relative h-[400px] w-[267px] overflow-hidden transition-all">

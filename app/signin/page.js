@@ -28,7 +28,7 @@ const Signin = () => {
             </div></Link>
           </div>
 
-          <div className='mx-5 my-10 w-[40vw] '>
+          <div className='mx-5 my-10 md:w-[40vw] '>
             <div className="text flex flex-col justify-center items-center my-2.5">
               <h2 className='font-bold text-2xl text-gray-900 gap-3'>Sign in</h2>
               <p>Sign in to continue to your account.</p>

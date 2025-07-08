@@ -86,27 +86,27 @@ const Mycart = () => {
   return (
     <>
       <Toaster />
-      <div className="min-h-screen">
-        <section className='mx-20 py-10'>
+      <div>
+        <section className='sm:mx-20 mx-5 py-10'>
           <h1 className='text-4xl font-extrabold'>My Cart</h1>
 
           <div className="items my-10">
             {cart.length > 0 ? cart.map((element, index) => {
-              return <div key={index} className="card py-5 px-10 bg-[#d1d5dc66] backdrop-blur-md rounded-xl shadow-lg my-5 flex items-center justify-between">
+              return <div key={index} className="card py-2.5 sm:py-5 px-3 sm:px-10 bg-[#d1d5dc66] backdrop-blur-md rounded-xl shadow-lg my-5 flex items-center justify-between">
                 <div className='flex gap-4 items-center'>
                   <div className="image">
                     <img src={element.image} alt="item-picture" className='w-10' />
                   </div>
-                  <div>
+                  <div className="text-sm sm:text-base">
                     <div className='product'>{element.product}</div>
                     <div className='brand'>{element.brand}</div>
                   </div>
                 </div>
 
-                <div className='flex gap-10 items-center'>
+                <div className='flex gap-10 items-center sm:text-base text-sm'>
                   <div>RS.{element.price}</div>
                   <button className='cursor-pointer' onClick={(e) => handleDelete(e)}>
-                    <AiOutlineDelete className='size-7 hover:text-red-700 hover:scale-125 transition-all' />
+                    <AiOutlineDelete className='size-5 sm:size-7 hover:text-red-700 hover:scale-125 transition-all' />
                   </button>
                 </div>
               </div>
