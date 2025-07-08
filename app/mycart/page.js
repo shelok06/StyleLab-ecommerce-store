@@ -9,7 +9,7 @@ import { BsCartCheck } from "react-icons/bs";
 import { v4 as uuidv4 } from 'uuid';
 import Link from 'next/link';
 
-const mycart = () => {
+const Mycart = () => {
   const { data: session } = useSession()
   const cart = useSelector(state => state.cart.value)
   const dispatch = useDispatch()
@@ -194,4 +194,4 @@ const mycart = () => {
   )
 }
 
-export default mycart
+export default Mycart

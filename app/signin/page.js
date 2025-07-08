@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { FaFacebook } from "react-icons/fa";
 import Link from 'next/link'
 
-const signin = () => {
+const Signin = () => {
   const { data: session } = useSession()
   const router = useRouter()
 
@@ -47,4 +47,4 @@ const signin = () => {
   )
 }
 
-export default signin
+export default Signin

@@ -1,7 +1,7 @@
 import { Geist, Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import StoreProvider from "./StoreProvider";
+import StoreProvider from "../components/StoreProvider";
 import SessionWrapper from "@/components/SessionWrapper";
 
 const geistSans = Geist({

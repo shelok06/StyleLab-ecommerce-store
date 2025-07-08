@@ -7,7 +7,7 @@ import { cartFiller, localCart } from '@/lib/features/cart/cartSlice';
 import { Toaster, toast } from 'react-hot-toast';
 import { useSession } from 'next-auth/react';
 
-const shop = () => {
+const Shop = () => {
   const { data: session } = useSession()
   const [categoryDropdown, setCatdropdown] = useState(false)
   const [priceDropdown, setPricedropdown] = useState(false)
@@ -163,4 +163,4 @@ const shop = () => {
   )
 }
 
-export default shop
+export default Shop
