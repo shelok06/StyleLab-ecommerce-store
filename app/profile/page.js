@@ -16,7 +16,7 @@ const Profile = () => {
   
   return (
     <>
-    <div className="signout">
+    <div className="signout min-h-screen">
         <button onClick={()=>{signOut()}}>Sign Out</button>
     </div>
     </>

@@ -19,7 +19,7 @@ const Signin = () => {
 
   return (
     <>
-      <div className='flex flex-col justify-center items-center my-10'>
+      <div className='flex flex-col justify-center items-center my-10 min-h-screen'>
         <div>
           <Link href="/"><div className="logo flex justify-center items-center">
             <img src="/logo.svg" alt="style-lab" width={50} />

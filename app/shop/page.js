@@ -65,7 +65,7 @@ const Shop = () => {
   return (
     <>
       <Toaster />
-      <section className='mx-20 px-14 py-10'>
+      <section className='mx-20 px-14 py-10 min-h-screen'>
         <div className='flex items-center font-semibold text-lg '>
           <Link href="/" className='text-slate-500'>Home</Link>
           /
