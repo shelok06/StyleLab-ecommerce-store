@@ -127,7 +127,7 @@ const Shop = () => {
           <div className="card_container my-10 flex lg:justify-start justify-center gap-6 lg:gap-4 flex-wrap">
             {productList && productList.map((item) => {
               return <div key={item._id} className="card rounded-lg bg-gray-100 p-4">
-                <div className="relative h-[400px] w-[267px] overflow-hidden transition-all">
+                <div className="relative h-[400px] w-[267px] overflow-hidden transition-all flex items-center">
                   <img className="prodImg" src={item.picture} alt="" />
                 </div>
                 <div className="text flex flex-col my-2.5 gap-2">
