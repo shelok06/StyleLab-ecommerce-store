@@ -17,17 +17,16 @@ const Shop = () => {
   const dispatch = useDispatch()
 
   const handleClick = async (e) => {
-    const price = e.currentTarget.parentElement.querySelector(".price").innerText.split(".")[1]
+    const price = parseInt(e.currentTarget.parentElement.querySelector(".price").innerText.split(".")[1])
     const brand = e.currentTarget.parentElement.querySelector(".brand").innerText
     const product = e.currentTarget.parentElement.querySelector(".product").innerText
     const image = e.currentTarget.parentElement.parentElement.querySelector(".prodImg").src
-    let arr = []
-    cart.forEach(element => {
+    let arr = cart.filter(element => {
       if (element.product === product && element.price === price && element.brand === brand) {
-        arr.push(element)
+        return element
       }
     });
-
+    
     if (arr.length > 0) {
       return toast.error("Item already exist in cart!")
     }
@@ -40,8 +39,6 @@ const Shop = () => {
   }
 
   useEffect(() => {
-    console.log(cart)
-    console.log(productList)
   })
 
   useEffect(() => {

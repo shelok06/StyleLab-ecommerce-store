@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+:root {
+  scroll-padding: 0;
+}
+
 @theme{
     --animate-slide-left: slide-left 1s ease-in-out 1 forwards;
 
