@@ -15,7 +15,7 @@ const B_Navbar = () => {
 
   return (
     <>
-      <nav className='fixed -bottom-1 w-full border-t-4 border-neutral-800 bg-[#f5f5f5b3] backdrop-blur-2xl block lg:hidden z-20 sm:px-5 p-2.5 sm:py-3'>
+      <nav className='fixed -bottom-2 w-full bg-[#f5f5f5b3] backdrop-blur-2xl block lg:hidden z-20 sm:px-5 p-2.5 sm:py-3'>
         <div className='flex items-center justify-evenly xs:justify-center'>
           <div className='flex justify-between items-center gap-4 xs:gap-8 sm:gap-15 mx-1 xs:mx-2.5'>
             <Link href="/" className={pathname === "/" ? "bg-neutral-200 p-2.5 rounded-xl flex flex-col justify-center items-center" : " flex flex-col justify-center items-center"}>
