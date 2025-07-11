@@ -6,10 +6,7 @@ import Order from "@/model/Order";
 
 export async function saveCart(item, email) {
     await connectDB()
-    const db = await Userdata.findOne({ email: email })
-    if (db) {
-        await Userdata.updateOne({ cart: item.cart })
-    }
+    await Userdata.findOneAndUpdate({ email: email }, { cart: item.cart })
     return true
 }
 
@@ -37,7 +34,7 @@ export async function orderCreator(id, email) {
             total += element.price
         })
 
-        const order = await Order.create({ "orderID": id, "email": email, "items": db.cart, total: total })
+        await Order.create({ "orderID": id, "email": email, "items": db.cart, total: total })
         return ({ cart: cart, total: total })
     }
 }

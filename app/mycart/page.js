@@ -54,6 +54,7 @@ const Mycart = () => {
 
   const handleCheckout = async () => {
     const id = uuidv4()
+    console.log(id)
     if (session && !showCheckout) {
       setMessage(false)
       try {
