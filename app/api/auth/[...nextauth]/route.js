@@ -1,18 +1,18 @@
 import NextAuth from 'next-auth'
-import FacebookProvider from 'next-auth/providers/facebook'
+import GoogleProvider from 'next-auth/providers/google'
 import connectDB from '@/db/connectDB'
 import Userdata from '@/model/Userdata'
 
 export const authoptions = NextAuth({
   providers: [
-    FacebookProvider({
-      clientId: process.env.FACEBOOK_ID,
-      clientSecret: process.env.FACEBOOK_SECRET
+    GoogleProvider({
+      clientId: process.env.GOOGLE_ID,
+      clientSecret: process.env.GOOGLE_SECRET
     }),
   ],
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
-      if (account.provider == "facebook") {
+      if (account.provider == "google") {
         await connectDB()
         const currentUser = await Userdata.findOne({ email: user.email })
         if (!currentUser) {

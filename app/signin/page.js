@@ -36,7 +36,7 @@ const Signin = () => {
 
             <div className="buttons my-8 flex flex-col justify-center items-center">
               <div className="facebook">
-                <button scope="public_profile" onClick={() => signIn("facebook")} className='border-2 border-black px-10 py-4 flex justify-between items-center gap-5'>
+                <button scope="public_profile" onClick={() => signIn("google")} className='border-2 border-black px-10 py-4 flex justify-between items-center gap-5'>
                   <FaFacebook className='size-10' />
                   <p>Continue with Facebook</p>
                 </button>
