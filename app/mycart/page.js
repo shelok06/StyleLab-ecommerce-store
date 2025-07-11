@@ -8,6 +8,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { BsCartCheck } from "react-icons/bs";
 import { v4 as uuidv4 } from 'uuid';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const Mycart = () => {
   const { data: session } = useSession()
@@ -18,6 +19,7 @@ const Mycart = () => {
   const [showCheckout, setshowCheckout] = useState(false)
   const [fetchedCart, setfetchedCart] = useState([])
   const [Total, setTotal] = useState(0)
+  const router = useRouter()
 
 
   const handleDelete = (e) => {
@@ -77,6 +79,17 @@ const Mycart = () => {
     }
   }
 
+  const handlePurchase = () => {
+    let rand = Math.floor(1 + Math.random() * 10)
+    
+    if(rand > 5){
+      alert("Purchase Failed")
+    }
+    else {
+      router.push("/paymentsuccess")
+    }
+  }
+
 
 
 
@@ -100,6 +113,7 @@ const Mycart = () => {
                   <div className="text-sm sm:text-base">
                     <div className='product'>{element.product}</div>
                     <div className='brand'>{element.brand}</div>
+                    <div className="quantity">Quantity: {element.quantity}</div>
                   </div>
                 </div>
 
@@ -162,6 +176,7 @@ const Mycart = () => {
                     <div className="text-sm sm:text-base">
                       <div className='product'>{element.product}</div>
                       <div className='brand'>{element.brand}</div>
+                      <div className="quantity">Quantity: {element.quantity}</div>
                     </div>
                   </div>
 
@@ -188,6 +203,10 @@ const Mycart = () => {
                   <div>RS.{Total}</div>
                 </div>
               </div>
+            </div>
+
+            <button onClick={() => handlePurchase()} className="bg-blue-600 text-white p-4 rounded-lg">COMPLETE PURCHASE</button>
+            <div>
             </div>
           </div>
         </section>
