@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation';
-import { FaFacebook } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 import Link from 'next/link'
 
 const Signin = () => {
@@ -37,8 +37,8 @@ const Signin = () => {
             <div className="buttons my-8 flex flex-col justify-center items-center">
               <div className="facebook">
                 <button scope="public_profile" onClick={() => signIn("google")} className='border-2 border-black px-10 py-4 flex justify-between items-center gap-5'>
-                  <FaFacebook className='size-10' />
-                  <p>Continue with Facebook</p>
+                  <FcGoogle className='size-10' />
+                  <p>Continue with Google</p>
                 </button>
               </div>
             </div>
