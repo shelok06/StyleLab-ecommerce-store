@@ -8,7 +8,6 @@ const Footer = () => {
             <ul className='flex gap-2 '>
                 <Link href="/privacy"><li>Privacy Policy</li></Link>
                 <Link href="/terms"><li>Terms & Conditions</li></Link>
-                <Link href="/data_deletion"><li>Data Deletion Request</li></Link>
             </ul>
       </footer>
     </>
