@@ -2,6 +2,7 @@ import connectDB from "@/db/connectDB";
 import Userdata from "@/model/Userdata";
 import clientPromise from "@/db/connectproductDB";
 import Order from "@/model/Order";
+import Stripe from "stripe";
 
 
 export async function saveCart(item, email) {
@@ -35,6 +36,26 @@ export async function orderCreator(id, email) {
         })
 
         await Order.create({ "orderID": id, "email": email, "items": db.cart, total: total })
+
         return ({ cart: cart, total: total })
     }
+}
+
+export async function paymentInitialized(id) {
+    const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET)
+    await connectDB()
+    const db = await Order.findOne({orderID: id})
+   if(db){
+       const paymentIntent = await stripe.paymentIntents.create({
+           amount: db.total * 100,
+           currency: 'usd',
+           automatic_payment_methods: { enabled: true },
+           metadata: {
+               orderID: id
+           }
+       })
+       
+       console.log(paymentIntent)
+    return paymentIntent.client_secret
+   }
 }

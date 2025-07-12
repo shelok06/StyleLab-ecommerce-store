@@ -9,6 +9,9 @@ import { BsCartCheck } from "react-icons/bs";
 import { v4 as uuidv4 } from 'uuid';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+import StripeComponent from '@/components/StripeComponent';
 
 const Mycart = () => {
   const { data: session } = useSession()
@@ -18,8 +21,10 @@ const Mycart = () => {
   const [message, setMessage] = useState(false)
   const [showCheckout, setshowCheckout] = useState(false)
   const [fetchedCart, setfetchedCart] = useState([])
-  const [Total, setTotal] = useState(0)
+  const [Total, setTotal] = useState(1)
+  const [clientSecret, setclientSecret] = useState(null)
   const router = useRouter()
+  const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY)
 
 
   const handleDelete = (e) => {
@@ -46,6 +51,7 @@ const Mycart = () => {
       let res = await r.json()
       setfetchedCart([...res.func.cart])
       setTotal(res.func.total)
+      setclientSecret(res.secret)
     } catch (error) {
       console.error(error)
       throw error
@@ -54,7 +60,6 @@ const Mycart = () => {
 
   const handleCheckout = async () => {
     const id = uuidv4()
-    console.log(id)
     if (session && !showCheckout) {
       setMessage(false)
       try {
@@ -79,20 +84,6 @@ const Mycart = () => {
       setMessage(true)
     }
   }
-
-  const handlePurchase = () => {
-    let rand = Math.floor(1 + Math.random() * 10)
-    
-    if(rand > 5){
-      alert("Purchase Failed")
-    }
-    else {
-      router.push("/paymentsuccess")
-    }
-  }
-
-
-
 
 
 
@@ -205,8 +196,12 @@ const Mycart = () => {
                 </div>
               </div>
             </div>
-
-            <button onClick={() => handlePurchase()} className="bg-blue-600 text-white p-4 rounded-lg">COMPLETE PURCHASE</button>
+            <div className="my-6">
+              <h2 className="text-2xl font-bold">3. Payment Method</h2>
+              <Elements stripe={stripePromise} options = {{ mode: 'payment', amount: Total * 100, currency: 'usd' }}>
+                <StripeComponent secret={clientSecret} Total={Total} />
+              </Elements>
+            </div>
             <div>
             </div>
           </div>

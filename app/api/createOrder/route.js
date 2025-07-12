@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { authoptions } from "../auth/[...nextauth]/route";
 import { getToken } from "next-auth/jwt";
 import { orderCreator } from "@/actions/useractions";
+import { paymentInitialized } from "@/actions/useractions";
 
 export async function POST(req) {
     try {
@@ -11,7 +12,8 @@ export async function POST(req) {
         }
         const body = await req.json()
         const func = await orderCreator(body.orderID, token.email)
-        return NextResponse.json({ success: true, func })
+        let clientSecret = await paymentInitialized(body.orderID)
+        return NextResponse.json({ success: true, func, secret: clientSecret })
 
     } catch (error) {
         console.error("API error : ", error.message)
