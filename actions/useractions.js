@@ -42,7 +42,7 @@ export async function orderCreator(id, email) {
 }
 
 export async function paymentInitialized(id) {
-    const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET)
+    const stripe = new Stripe(process.env.STRIPE_SECRET)
     await connectDB()
     const db = await Order.findOne({orderID: id})
    if(db){
