@@ -151,7 +151,7 @@ const Mycart = () => {
                 </div>
 
                 <div className='flex gap-10 items-center sm:text-base text-sm'>
-                  <div>RS.{element.price}</div>
+                  <div>{element.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
                   <button className='cursor-pointer' onClick={(e) => handleDelete(e)}>
                     <AiOutlineDelete className='size-5 sm:size-7 hover:text-red-700 hover:scale-125 transition-all' />
                   </button>
@@ -224,7 +224,7 @@ const Mycart = () => {
                     </div>
 
                     <div className='flex gap-10 items-center'>
-                      <div>RS.{element.price}</div>
+                      <div>{element.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
                     </div>
                   </div>
                 })
@@ -233,7 +233,7 @@ const Mycart = () => {
                 <div className="my-4">
                   <div className="flex justify-between my-2.5">
                     <h3>Subtotal</h3>
-                    <div>RS.{Total}</div>
+                    <div>{Total.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
                   </div>
 
                   <div className="flex justify-between my-2.5">
@@ -243,7 +243,7 @@ const Mycart = () => {
 
                   <div className="flex justify-between my-2.5 font-semibold text-lg">
                     <h3>Total</h3>
-                    <div>RS.{Total}</div>
+                    <div>{Total.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</div>
                   </div>
                 </div>
               </div>

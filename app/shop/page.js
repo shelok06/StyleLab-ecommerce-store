@@ -19,7 +19,7 @@ const Shop = () => {
 
   const handleClick = async (e, index) => {
     const quantity = parseInt(e.currentTarget.parentElement.querySelector(`#q-${index}`).innerText)
-    const price = (parseInt(e.currentTarget.parentElement.querySelector(".price").innerText.split(".")[1]))*quantity
+    const price = (parseInt(e.currentTarget.parentElement.querySelector(".price").innerText.split("$")[1]))*quantity
     const brand = e.currentTarget.parentElement.querySelector(".brand").innerText
     const product = e.currentTarget.parentElement.querySelector(".product").innerText
     const image = e.currentTarget.parentElement.parentElement.querySelector(".prodImg").src
@@ -149,7 +149,7 @@ const Shop = () => {
                     <h2 className="text-lg product">{item.product}</h2>
                   </div>
                   <p className="text-gray-400 brand">{item.brand}</p>
-                  <p className="price">RS.{item.price}</p>
+                  <p className="price">{item.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</p>
                   <div className="flex justify-between items-center">
                     <h3 className="font-semibold">Quantity: </h3>
                     <div className="flex items-center gap-4">
