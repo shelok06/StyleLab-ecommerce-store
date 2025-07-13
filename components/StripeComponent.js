@@ -34,7 +34,6 @@ const StripeComponent = ({ secret, orderID }) => {
     return (
         <>
             <Toaster />
-            <script src="https://js.stripe.com/basil/stripe.js"></script>
             <div className='my-4'>
                 <form onSubmit={handleSubmit}>
                     <div>
