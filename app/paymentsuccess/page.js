@@ -49,32 +49,32 @@ const PaymentSuccess = () => {
   return (
     <>
       {Order ? <section className='my-10 flex justify-center items-center'>
-        <div className='rounded-xl bg-gray-100 shadow-2xl w-[600px] flex flex-col items-center'>
+        <div className='rounded-xl bg-gray-100 shadow-2xl w-[300px] sm:w-[400px] md:w-[600px] flex flex-col items-center'>
           <div className="image bg-green-500 rounded-full w-fit p-2 my-15">
             <img src="/complete.gif" alt="tick" className='size-20' />
           </div>
 
           <div className="heading my-4">
-            <h1 className='text-4xl font-bold'>Payment completed</h1>
+            <h1 className='text-2xl sm:text-4xl font-bold'>Payment completed</h1>
           </div>
 
-          <div className='flex justify-start my-3'>
+          <div className='flex flex-col md:flex-row justify-center items-center text-sm sm:text-base my-3'>
             <div className='mx-2.5'>Order ID: </div>
-            <p>{orderID}</p>
+            <p className='text-center'>{orderID}</p>
           </div>
 
           <div className='my-4 flex flex-col items-center'>
             <h2 className='font-semibold text-xl'>Transaction Details</h2>
 
 
-            <div className='px-10 py-4 bg-gray-200 my-3'>
+            <div className='px-2.5 sm:px-10 py-4 bg-gray-200 my-3'>
               <div className='flex justify-start my-3'>
                 <div className='mx-2.5'>Name: </div>
                 <p>{Name}</p>
               </div>
 
               <div className='flex justify-start'>
-                <div className='mx-2.5'>Data: </div>
+                <div className='mx-2.5'>Date: </div>
                 <p>{Date}</p>
               </div>
 
@@ -93,7 +93,7 @@ const PaymentSuccess = () => {
             </div>
           </div>
 
-          <div className='my-10 self-start mx-5'>
+          <div className='my-10 self-start mx-5 text-sm sm:text-base'>
             <p className='font-semibold'>For further inquiries, please contact: </p>
             <p className='italic'>03123456789</p>
             <p className='italic'>example@example.com</p>
