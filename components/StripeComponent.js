@@ -1,27 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useStripe, useElements, PaymentElement, } from '@stripe/react-stripe-js';
-import Script from 'next/script';
+import { Toaster, toast } from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
-const StripeComponent = ({ secret, Total }) => {
+const StripeComponent = ({ secret, orderID }) => {
     const stripe = useStripe()
     const elements = useElements()
+    const router = useRouter()
+    const [Loader, setLoader] = useState(false)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!stripe || !elements || !secret) return;
-
+        setLoader(true)
         await elements.submit()
-        const result = await stripe.confirmPayment({
+        const { error, paymentIntent } = await stripe.confirmPayment({
             elements,
             clientSecret: secret,
             confirmParams: {
-                return_url: `${process.env.NEXTAUTH_URL}/paymentsuccess`
-            }
+                return_url: `${process.env.NEXT_PUBLIC_REDIRECT_URL}/paymentsuccess`
+            },
+            redirect: "if_required",
         })
 
-        if(!result.error){
-            alert("Payment Successful")
-        } 
+        if (!error) {
+            router.push(`/paymentsuccess?orderID=${orderID}`)
+        }
         else {
             console.log(result.error)
         }
@@ -29,17 +33,20 @@ const StripeComponent = ({ secret, Total }) => {
 
     return (
         <>
-            <Script src="https://js.stripe.com/v3/"></Script>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <PaymentElement id="payment-element" />
-                </div>
+            <Toaster />
+            <script src="https://js.stripe.com/basil/stripe.js"></script>
+            <div className='my-4'>
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        <PaymentElement id="payment-element" />
+                    </div>
 
-                <div className="button flex justify-center items-center">
-                    <button type="submit" className="bg-blue-600 text-white p-4 rounded-lg">COMPLETE PURCHASE</button>
-                </div>
+                    <div className="button flex justify-center items-center my-3">
+                        <button disabled={Loader} type="submit" className="bg-blue-600 text-white p-4 rounded-lg font-semibold disabled:bg-blue-400">COMPLETE PURCHASE</button>
+                    </div>
 
-            </form>
+                </form>
+            </div>
         </>
     )
 }

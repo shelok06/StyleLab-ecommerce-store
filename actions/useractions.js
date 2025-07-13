@@ -7,8 +7,13 @@ import Stripe from "stripe";
 
 export async function saveCart(item, email) {
     await connectDB()
-    await Userdata.findOneAndUpdate({ email: email }, { cart: item.cart })
-    return true
+    try {
+        let db = await Userdata.findOneAndUpdate({ email: email }, { cart: item.cart })
+        if (!db) throw new Error("User not found")
+        return true
+    } catch (error) {
+        return { success: false, message: error }
+    }
 }
 
 export async function fetchProducts() {
@@ -19,16 +24,17 @@ export async function fetchProducts() {
         return { success: true, data: data }
     }
     catch (error) {
-        res.status(500).json({ success: false, error: error.message })
-        return { success: false }
+        return { success: false, message: error }
     }
 
 }
 
 export async function orderCreator(id, email) {
     await connectDB()
-    const db = await Userdata.findOne({ email: email })
-    if (db) {
+    try {
+        const db = await Userdata.findOne({ email: email })
+        if (!db) throw new Error("User not found")
+
         let cart = db.cart
         let total = 0
         cart.forEach(element => {
@@ -38,24 +44,55 @@ export async function orderCreator(id, email) {
         await Order.create({ "orderID": id, "email": email, "items": db.cart, total: total })
 
         return ({ cart: cart, total: total })
+
+    } catch (error) {
+        return { success: false, message: error }
     }
 }
 
 export async function paymentInitialized(id) {
     const stripe = new Stripe(process.env.STRIPE_SECRET)
     await connectDB()
-    const db = await Order.findOne({orderID: id})
-   if(db){
-       const paymentIntent = await stripe.paymentIntents.create({
-           amount: db.total * 100,
-           currency: 'usd',
-           automatic_payment_methods: { enabled: true },
-           metadata: {
-               orderID: id
-           }
-       })
-       
-       console.log(paymentIntent)
-    return paymentIntent.client_secret
-   }
+    const db = await Order.findOne({ orderID: id })
+    try {
+        if (!db || !stripe) throw new Error("Payment Error")
+        const paymentIntent = await stripe.paymentIntents.create({
+            amount: db.total * 100,
+            currency: 'usd',
+            automatic_payment_methods: { enabled: true },
+            metadata: {
+                orderID: id
+            }
+        })
+        return paymentIntent.client_secret
+
+    } catch (error) {
+        return { success: false, message: error }
+    }
+}
+
+export async function saveForm(orderId, form) {
+    if (form.name.match(/[0-9\*\+\-\/\?\%\$\@\!\^]/g) || form.phone.match(/[A-Z\*\/\?\%\$\@\!\^\&]/gi) || form.city.match(/[0-9\*\+\-\/\?\%\$\@\!\^]/g)) {
+        return { success: false, message: "Invalid Input" }
+    }
+
+    try {
+        await connectDB()
+        const db = await Order.findOneAndUpdate({ "orderID": orderId }, { $set: { "name": form.name, "address": form.address, "phone": form.phone, "city": form.city } })
+        if (!db) throw new Error("Order not found")
+        return { success: true }
+    } catch (error) {
+        return { success: false, message: "Order failed, try again later" }
+    }
+}
+
+export async function fetchOrder(orderID) {
+    try {
+        await connectDB()
+        const db = await Order.findOne({ "orderID": orderID })
+        if(!db) throw new Error("Order not found")
+        return { success: true, order: db }
+    } catch (error) {
+        return { success: false, message: "Order not found" }
+    }
 }

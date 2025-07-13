@@ -7,13 +7,14 @@ const OrderSchema = new Schema({
     items: { type: Array, required: true },
     total: { type: Number, required: true },
     delivery: { type: Boolean, default: false },
+    orderFinalization: {type: Boolean, default: false},
     payment: { type: Boolean, default: false },
-    OrderFinalization: { type: Boolean, default: false },
     name: { type: String },
     address: { type: String },
+    phone: {type: String },
     city: { type: String },
-    createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now }
+    createdAt: { type: String, default: new Date().toLocaleString() },
+    updatedAt: { type: String, default: new Date().toLocaleString() }
 })
 
 export default mongoose.models.Order || model("Order", OrderSchema)
