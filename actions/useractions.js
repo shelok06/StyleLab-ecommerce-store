@@ -3,6 +3,7 @@ import Userdata from "@/model/Userdata";
 import clientPromise from "@/db/connectproductDB";
 import Order from "@/model/Order";
 import Stripe from "stripe";
+import nodemailer from "nodemailer"
 
 
 export async function saveCart(item, email) {
@@ -90,9 +91,41 @@ export async function fetchOrder(orderID) {
     try {
         await connectDB()
         const db = await Order.findOne({ "orderID": orderID })
-        if(!db) throw new Error("Order not found")
+        if (!db) throw new Error("Order not found")
         return { success: true, order: db }
     } catch (error) {
         return { success: false, message: "Order not found" }
+    }
+}
+
+export async function handleMessage(message) {
+    const client = await clientPromise
+    const db = await client.db('stylelab')
+    const data = await db.collection("Messages").insertOne({ message: message})
+    
+
+    const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+            user: process.env.EMAIL,
+            pass: process.env.GOOGLE_APP_PASSWORD,
+        },
+    })
+
+    try {
+        const info = await transporter.sendMail({
+            from: process.env.EMAIL,
+            to: process.env.EMAIL,
+            subject: `${message.subject}:`,
+            text: `From: ${message.name}\nEmail: ${message.email}\nMessage: ${message.message}`,
+        })
+
+        if (info.rejected.length < 1) {
+            return { success: true, message: 'Message sent!' }
+        } else {
+            return { success: false, message: 'Message not sent!' }
+        }
+    } catch (error) {
+        return { success: false, message: "Message not sent" }
     }
 }

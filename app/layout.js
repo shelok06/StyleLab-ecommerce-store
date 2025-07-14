@@ -29,10 +29,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} ${jakartaSans.className} antialiased `} >
+      <body className={`${geistSans.variable} ${geistMono.variable} ${jakartaSans.className} antialiased bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]`} >
         <SessionWrapper>
           <StoreProvider>
-            <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]"></div>
             <Navbar />
             {children}
             <B_Navbar />

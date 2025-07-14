@@ -19,7 +19,7 @@ const Shop = () => {
 
   const handleClick = async (e, index) => {
     const quantity = parseInt(e.currentTarget.parentElement.querySelector(`#q-${index}`).innerText)
-    const price = (parseInt(e.currentTarget.parentElement.querySelector(".price").innerText.split("$")[1]))*quantity
+    const price = (parseInt(e.currentTarget.parentElement.querySelector(".price").innerText.split("$")[1])) * quantity
     const brand = e.currentTarget.parentElement.querySelector(".brand").innerText
     const product = e.currentTarget.parentElement.querySelector(".product").innerText
     const image = e.currentTarget.parentElement.parentElement.querySelector(".prodImg").src
@@ -77,12 +77,6 @@ const Shop = () => {
     <>
       <Toaster />
       <section className='lg:mx-20 lg:px-14 mx-10 px-3.5 sm:px-7 py-10'>
-        <div className='flex items-center font-semibold text-lg '>
-          <Link href="/" className='text-slate-500'>Home</Link>
-          /
-          <Link href="/shop">Shop</Link>
-        </div>
-
         <div className='my-10'>
           <h1 className='text-3xl font-bold'>Shop</h1>
           <div className="options my-5 flex gap-5">
