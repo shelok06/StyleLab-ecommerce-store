@@ -8,11 +8,11 @@ const About = () => {
         <div className="heading">
           <h1 className='text-2xl sm:text-4xl font-extrabold my-2.5'>About Style Lab</h1>
           <p className='my-2.5 text-slate-950 sm:text-lg text-base'>
-            At Style Lab, we believe that fashion is more than just clothing; it's a form of self-expression.
+            At Style Lab, we believe that fashion is more than just clothing; it&apso;s a form of self-expression.
             Our journey began with a simple idea: to curate a collection of high-quality,
             stylish pieces that empower individuals to embrace their unique style.
-            We're passionate about providing a seamless shopping experience,
-            from browsing our carefully selected items to receiving your order at your doorstep. 
+            We&apso;re passionate about providing a seamless shopping experience,
+            from browsing our carefully selected items to receiving your order at your doorstep.
           </p>
         </div>
 
@@ -22,7 +22,7 @@ const About = () => {
             Our mission is to inspire confidence and individuality through fashion.
             We strive to offer a diverse range of styles that cater to different tastes and preferences,
             ensuring that everyone can find something they love.
-            We're committed to sustainability and ethical practices,
+            We&apso;re committed to sustainability and ethical practices,
             working with suppliers who share our values.
           </p>
         </div>
