@@ -12,7 +12,7 @@ const About = () => {
             Our journey began with a simple idea: to curate a collection of high-quality,
             stylish pieces that empower individuals to embrace their unique style.
             We're passionate about providing a seamless shopping experience,
-            from browsing our carefully selected items to receiving your order at your doorstep.
+            from browsing our carefully selected items to receiving your order at your doorstep. 
           </p>
         </div>
 
