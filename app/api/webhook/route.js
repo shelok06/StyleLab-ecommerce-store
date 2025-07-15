@@ -14,7 +14,7 @@ export async function POST(req) {
     let deliveryDate = () => {
         const date = new Date()
         let newDate = date.setDate(date.getDate() + 7)
-        return (new Date(newDate))
+        return (new Date(newDate).toDateString())
     }
 
 
