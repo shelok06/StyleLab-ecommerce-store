@@ -9,6 +9,7 @@ const Item = ({ params }) => {
   const [keyword, setkeyword] = useState("")
   const [Products, setProducts] = useState([])
   const cart = useSelector(state => state.cart.value)
+  const [Loading, setLoading] = useState("")
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -17,6 +18,7 @@ const Item = ({ params }) => {
       setkeyword(item.item)
       let res = await fetch(`/api/findProduct?item=${item.item}`)
       let r = await res.json()
+      if(r.list.length<1) setLoading("Item not found")
       setProducts(r.list)
     }
 
@@ -89,7 +91,7 @@ const Item = ({ params }) => {
                 <button onClick={e => handleClick(e, index)} className="border-2 border-black rounded-full py-3 font-semibold">Add to cart</button>
               </div>
             </div>
-          }) : <div>Item not found</div>}
+          }) : <div>{Loading}</div>}
         </div>
       </section>
     </>
