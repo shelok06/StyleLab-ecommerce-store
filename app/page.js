@@ -6,7 +6,7 @@ export default function Home() {
 
   return (
     <>
-      <div>
+      <div className="my-20">
         <section className="mx-auto my-6 w-[90%] h-[500px] lg:h-[700px] rounded-xl relative overflow-hidden text-white">
           <div className="absolute w-80 h-6 bg-white top-0 left-[39%] rounded-b-xl z-10 hidden lg:block"></div>
           <div className="absolute w-50 h-6 bg-white rounded-t-xl left-[20%] bottom-0 z-10 hidden lg:block"></div>

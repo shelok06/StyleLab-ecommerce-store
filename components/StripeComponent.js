@@ -27,8 +27,8 @@ const StripeComponent = ({ secret, orderID }) => {
             router.push(`/paymentsuccess?orderID=${orderID}`)
         }
         else {
-            alert(error)
             console.log(error)
+            setLoader(false)
         }
     }
 

@@ -5,11 +5,9 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 import { useSelector, useDispatch } from 'react-redux';
 import { cartFiller, localCart } from '@/lib/features/cart/cartSlice';
 import { Toaster, toast } from 'react-hot-toast';
-import { useSession } from 'next-auth/react';
 import { FiPlus, FiMinus } from "react-icons/fi";
 
 const Shop = () => {
-  const { data: session } = useSession()
   const [categoryDropdown, setCatdropdown] = useState(false)
   const [priceDropdown, setPricedropdown] = useState(false)
   const [productList, setproductList] = useState([])
@@ -39,9 +37,6 @@ const Shop = () => {
       toast.success(`${details.product} added to the cart 🛒`)
     }
   }
-
-  useEffect(() => {
-  })
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -76,7 +71,7 @@ const Shop = () => {
   return (
     <>
       <Toaster />
-      <section className='lg:mx-20 lg:px-14 mx-10 px-3.5 sm:px-7 py-10'>
+      <section className='lg:mx-20 lg:px-14 mx-10 px-3.5 sm:px-7 py-10 min-h-screen'>
         <div className='my-10'>
           <h1 className='text-3xl font-bold'>Shop</h1>
           <div className="options my-5 flex gap-5">

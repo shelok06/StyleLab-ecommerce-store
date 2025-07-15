@@ -130,3 +130,15 @@ export async function handleMessage(message) {
         return { success: false, message: "Message not sent" }
     }
 }
+
+export async function findProduct(item) {
+    try {
+        const client = await clientPromise
+        const db = client.db('stylelabAdmin')
+        const data = await db.collection("products").find({$or: [ { product: {$regex: item, $options:"i"} }, { brand: {$regex: item, $options:"i"} } ]}).toArray()
+        if (!data) throw new Error("Product not found")
+        return { success: true, message: data}
+    } catch (error) {
+        return { success: false, message: error }
+    }
+}

@@ -5,6 +5,7 @@ const PaymentSuccess = () => {
   const [orderID, setorderID] = useState(null)
   const [Order, setOrder] = useState(null)
   const [Date, setDate] = useState("")
+  const [DDate, setDDate] = useState("")
   const [Amount, setAmount] = useState("")
   const [Email, setEmail] = useState("")
   const [Name, setName] = useState("")
@@ -41,6 +42,7 @@ const PaymentSuccess = () => {
       setAmount(Order.total.toLocaleString('en-US', { style: 'currency', currency: 'USD' }))
       setEmail(Order.email)
       setName(Order.name)
+      setDDate(Order.deliveryDate ? Order.deliveryDate : "")
     }
   }, [Order])
 
@@ -73,12 +75,15 @@ const PaymentSuccess = () => {
                 <p>{Name}</p>
               </div>
 
-              <div className='flex justify-start'>
-                <div className='mx-2.5'>Date: </div>
+              <div className='flex justify-start my-3'>
+                <div className='mx-2.5'>Order date: </div>
                 <p>{Date}</p>
               </div>
 
-
+              <div className='flex justify-start my-3'>
+                <div className='mx-2.5'>Delivery date: </div>
+                <p>{DDate}</p>
+              </div>
 
               <div className='flex justify-start my-3'>
                 <div className='mx-2.5'>Email: </div>
