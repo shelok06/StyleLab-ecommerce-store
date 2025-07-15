@@ -67,7 +67,7 @@ const Item = ({ params }) => {
         </div>
 
         <div className="card_container my-10 flex lg:justify-start justify-center gap-6 lg:gap-4 flex-wrap">
-          {Products && Products.map((item, index) => {
+          {Products.length > 0 ? Products.map((item, index) => {
             return <div key={item._id} className="card rounded-lg bg-gray-100 p-4">
               <div className="relative h-[400px] w-[267px] overflow-hidden transition-all flex items-center">
                 <img className="prodImg" src={item.picture} alt="" />
@@ -89,8 +89,7 @@ const Item = ({ params }) => {
                 <button onClick={e => handleClick(e, index)} className="border-2 border-black rounded-full py-3 font-semibold">Add to cart</button>
               </div>
             </div>
-          })
-          }
+          }) : <div>Item not found</div>}
         </div>
       </section>
     </>
