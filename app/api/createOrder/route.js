@@ -11,7 +11,7 @@ export async function POST(req) {
         }
         const body = await req.json()
         const func = await orderCreator(body.orderID, token.email)
-        let clientSecret = await paymentInitialized(body.orderID)
+        let clientSecret = await paymentInitialized(body.orderID, token.email)
         return NextResponse.json({ success: true, func, secret: clientSecret })
 
     } catch (error) {

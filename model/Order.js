@@ -14,7 +14,8 @@ const OrderSchema = new Schema({
     phone: {type: String },
     city: { type: String },
     createdAt: { type: String, default: new Date().toLocaleString() },
-    updatedAt: { type: String, default: new Date().toLocaleString() }
+    updatedAt: { type: String, default: new Date().toLocaleString() },
+    deliveryDate: { type: String }
 })
 
 export default mongoose.models.Order || model("Order", OrderSchema)

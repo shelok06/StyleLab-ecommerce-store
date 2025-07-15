@@ -51,7 +51,7 @@ export async function orderCreator(id, email) {
     }
 }
 
-export async function paymentInitialized(id) {
+export async function paymentInitialized(id, email) {
     const stripe = new Stripe(process.env.STRIPE_SECRET)
     await connectDB()
     const db = await Order.findOne({ orderID: id })
@@ -62,7 +62,8 @@ export async function paymentInitialized(id) {
             currency: 'usd',
             automatic_payment_methods: { enabled: true },
             metadata: {
-                orderID: id
+                orderID: id,
+                email: email
             }
         })
         return paymentIntent.client_secret
