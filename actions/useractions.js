@@ -102,8 +102,8 @@ export async function fetchOrder(orderID) {
 export async function handleMessage(message) {
     const client = await clientPromise
     const db = await client.db('stylelab')
-    const data = await db.collection("Messages").insertOne({ message: message})
-    
+    const data = await db.collection("Messages").insertOne({ message: message })
+
 
     const transporter = nodemailer.createTransport({
         service: "gmail",
@@ -135,9 +135,23 @@ export async function findProduct(item) {
     try {
         const client = await clientPromise
         const db = client.db('stylelabAdmin')
-        const data = await db.collection("products").find({$or: [ { product: {$regex: item, $options:"i"} }, { brand: {$regex: item, $options:"i"} } ]}).toArray()
+        const data = await db.collection("products").find({ $or: [{ product: { $regex: item, $options: "i" } }, { brand: { $regex: item, $options: "i" } }] }).toArray()
         if (!data) throw new Error("Product not found")
-        return { success: true, message: data}
+        return { success: true, message: data }
+    } catch (error) {
+        return { success: false, message: error }
+    }
+}
+
+export async function fetchOrdersList(email) {
+    try {
+        await connectDB()
+        const db = await Order.find({ "email": email })
+        if (!db) throw new Error("Order not found")
+        const list = db.filter((item) => {
+            return item.payment
+        })
+        return { success: true, message: list }
     } catch (error) {
         return { success: false, message: error }
     }
