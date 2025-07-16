@@ -8,8 +8,8 @@ import { FiPlus, FiMinus } from "react-icons/fi";
 const Item = ({ params }) => {
   const [keyword, setkeyword] = useState("")
   const [Products, setProducts] = useState([])
-  const cart = useSelector(state => state.cart.value)
   const [Loading, setLoading] = useState("")
+  const cart = useSelector(state => state.cart.value)
   const dispatch = useDispatch()
 
   useEffect(() => {

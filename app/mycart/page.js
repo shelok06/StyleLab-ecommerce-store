@@ -132,7 +132,7 @@ const Mycart = () => {
   return (
     <>
       <Toaster />
-      <div>
+      <div className="overflow-hidden">
         <section className='sm:mx-20 mx-5 py-10'>
           <h1 className='text-4xl font-extrabold'>My Cart</h1>
 

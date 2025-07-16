@@ -1,13 +1,18 @@
+'use client'
 import React, { useState } from 'react'
 import { useStripe, useElements, PaymentElement, } from '@stripe/react-stripe-js';
-import { Toaster, toast } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import { useSelector, useDispatch } from 'react-redux';
+import { cartEmpty, localCart } from '@/lib/features/cart/cartSlice';
+import UILoader from './UILoader';
 
 const StripeComponent = ({ secret, orderID }) => {
     const stripe = useStripe()
     const elements = useElements()
     const router = useRouter()
     const [Loader, setLoader] = useState(false)
+    const cart = useSelector(state => state.cart.value)
+    const dispatch = useDispatch()
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -24,7 +29,11 @@ const StripeComponent = ({ secret, orderID }) => {
         })
 
         if (!error) {
-            router.push(`/paymentsuccess?orderID=${orderID}`)
+            dispatch(cartEmpty())
+            dispatch(localCart())
+            setTimeout(() => {
+                router.push(`/paymentsuccess?orderID=${orderID}`)
+            }, 500);
         }
         else {
             console.log(error)
@@ -34,7 +43,6 @@ const StripeComponent = ({ secret, orderID }) => {
 
     return (
         <>
-            <Toaster />
             <div className='my-4'>
                 <form onSubmit={handleSubmit}>
                     <div>
@@ -43,6 +51,10 @@ const StripeComponent = ({ secret, orderID }) => {
 
                     <div className="button flex justify-center items-center my-3">
                         <button disabled={Loader} type="submit" className="bg-blue-600 text-white p-4 rounded-lg font-semibold disabled:bg-blue-400">COMPLETE PURCHASE</button>
+                    </div>
+
+                    <div className={`${Loader ? "bg-[#86898f36] backdrop-blur-lg z-30 fixed inset-0 h-[100vh] w-[100vw]" : "hidden"}`}>
+                        <UILoader />
                     </div>
 
                 </form>
