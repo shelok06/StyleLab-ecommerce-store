@@ -50,7 +50,7 @@ const PaymentSuccess = () => {
 
   return (
     <>
-      {Order && Order.payment ? <section className='my-10 flex justify-center items-center'>
+      {Order ? <section className='my-10 flex justify-center items-center'>
         <div className='rounded-xl bg-gray-100 shadow-2xl w-[300px] sm:w-[400px] md:w-[600px] flex flex-col items-center'>
           <div className="image bg-green-500 rounded-full w-fit p-2 my-15">
             <img src="/complete.gif" alt="tick" className='size-20' />

@@ -146,7 +146,7 @@ export async function findProduct(item) {
 export async function fetchOrdersList(email) {
     try {
         await connectDB()
-        const db = await Order.find({ "email": email })
+        const db = await Order.find({ "email": email }).sort({ createdAt: 1 })
         if (!db) throw new Error("Order not found")
         const list = db.filter((item) => {
             return item.payment

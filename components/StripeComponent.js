@@ -33,7 +33,7 @@ const StripeComponent = ({ secret, orderID }) => {
             dispatch(localCart())
             setTimeout(() => {
                 router.push(`/paymentsuccess?orderID=${orderID}`)
-            }, 500);
+            }, 1000);
         }
         else {
             console.log(error)

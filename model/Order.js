@@ -13,7 +13,7 @@ const OrderSchema = new Schema({
     address: { type: String },
     phone: {type: String },
     city: { type: String },
-    createdAt: { type: String, default: new Date().toLocaleString() },
+    createdAt: { type: Date, default: Date.now },
     updatedAt: { type: String, default: new Date().toLocaleString() },
     deliveryDate: { type: String }
 })
