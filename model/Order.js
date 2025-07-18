@@ -14,7 +14,7 @@ const OrderSchema = new Schema({
     phone: {type: String },
     city: { type: String },
     createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: String, default: new Date().toLocaleString() },
+    updatedAt: { type: String, default: new Date().toLocaleString("en-PK", { timeZone: "Asia/Karachi" }) },
     deliveryDate: { type: String }
 })
 

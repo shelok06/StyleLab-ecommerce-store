@@ -32,7 +32,7 @@ export async function POST(req) {
         case 'payment_intent.succeeded':
             await connectDB()
             console.log(deliveryDate())
-            let db = await Order.findOneAndUpdate({ orderID: id }, { payment: true, orderFinalization: true, updatedAt: new Date().toLocaleString(), deliveryDate: deliveryDate() }, { new: true })
+            let db = await Order.findOneAndUpdate({ orderID: id }, { payment: true, orderFinalization: true, updatedAt: new Date().toLocaleString("en-PK", { timeZone: "Asia/Karachi" }), deliveryDate: deliveryDate() }, { new: true })
             await Userdata.findOneAndUpdate({email: email}, {cart: []}, { new: true })
             if (!db) throw new Error("Order not found")
             break;
